@@ -1,80 +1,83 @@
 {
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/xyangel/src",
-  "projectType": "application",
-  "targets": {
-    "build": {
-      "executor": "@nrwl/web:webpack",
-      "outputs": ["{options.outputPath}"],
-      "defaultConfiguration": "production",
-      "options": {
-        "compiler": "babel",
-        "outputPath": "dist/apps/xyangel",
-        "index": "apps/xyangel/src/index.html",
-        "baseHref": "/",
-        "main": "apps/xyangel/src/main.tsx",
-        "polyfills": "apps/xyangel/src/polyfills.ts",
-        "tsConfig": "apps/xyangel/tsconfig.app.json",
-        "assets": ["apps/xyangel/src/favicon.ico", "apps/xyangel/src/assets"],
-        "styles": ["apps/xyangel/src/styles.scss"],
-        "scripts": [],
-        "webpackConfig": "@nrwl/react/plugins/webpack"
-      },
-      "configurations": {
-        "development": {
-          "extractLicenses": false,
-          "optimization": false,
-          "sourceMap": true,
-          "vendorChunk": true
-        },
-        "production": {
-          "fileReplacements": [
-            {
-              "replace": "apps/xyangel/src/environments/environment.ts",
-              "with": "apps/xyangel/src/environments/environment.prod.ts"
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "sourceRoot": "apps/xyangel/src",
+    "projectType": "application",
+    "targets": {
+        "build": {
+            "executor": "@nrwl/web:webpack",
+            "outputs": ["{options.outputPath}"],
+            "defaultConfiguration": "production",
+            "options": {
+                "compiler": "babel",
+                "outputPath": "dist/apps/xyangel",
+                "index": "apps/xyangel/src/index.html",
+                "baseHref": "/",
+                "main": "apps/xyangel/src/main.tsx",
+                "polyfills": "apps/xyangel/src/polyfills.ts",
+                "tsConfig": "apps/xyangel/tsconfig.app.json",
+                "assets": [
+                    "apps/xyangel/src/favicon.ico",
+                    "apps/xyangel/src/assets"
+                ],
+                "styles": ["apps/xyangel/src/styles.scss"],
+                "scripts": [],
+                "webpackConfig": "@nrwl/react/plugins/webpack"
+            },
+            "configurations": {
+                "development": {
+                    "extractLicenses": false,
+                    "optimization": false,
+                    "sourceMap": true,
+                    "vendorChunk": true
+                },
+                "production": {
+                    "fileReplacements": [
+                        {
+                            "replace": "apps/xyangel/src/environments/environment.ts",
+                            "with": "apps/xyangel/src/environments/environment.prod.ts"
+                        }
+                    ],
+                    "optimization": true,
+                    "outputHashing": "all",
+                    "sourceMap": false,
+                    "namedChunks": false,
+                    "extractLicenses": true,
+                    "vendorChunk": false
+                }
             }
-          ],
-          "optimization": true,
-          "outputHashing": "all",
-          "sourceMap": false,
-          "namedChunks": false,
-          "extractLicenses": true,
-          "vendorChunk": false
-        }
-      }
-    },
-    "serve": {
-      "executor": "@nrwl/web:dev-server",
-      "defaultConfiguration": "development",
-      "options": {
-        "buildTarget": "xyangel:build",
-        "hmr": true
-      },
-      "configurations": {
-        "development": {
-          "buildTarget": "xyangel:build:development"
         },
-        "production": {
-          "buildTarget": "xyangel:build:production",
-          "hmr": false
+        "serve": {
+            "executor": "@nrwl/web:dev-server",
+            "defaultConfiguration": "development",
+            "options": {
+                "buildTarget": "xyangel:build",
+                "hmr": true
+            },
+            "configurations": {
+                "development": {
+                    "buildTarget": "xyangel:build:development"
+                },
+                "production": {
+                    "buildTarget": "xyangel:build:production",
+                    "hmr": false
+                }
+            }
+        },
+        "lint": {
+            "executor": "@nrwl/linter:eslint",
+            "outputs": ["{options.outputFile}"],
+            "options": {
+                "lintFilePatterns": ["apps/xyangel/**/*.{ts,tsx,js,jsx}"]
+            }
+        },
+        "test": {
+            "executor": "@nrwl/jest:jest",
+            "outputs": ["coverage/apps/xyangel"],
+            "options": {
+                "jestConfig": "apps/xyangel/jest.config.ts",
+                "passWithNoTests": true
+            }
         }
-      }
     },
-    "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["apps/xyangel/**/*.{ts,tsx,js,jsx}"]
-      }
-    },
-    "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/xyangel"],
-      "options": {
-        "jestConfig": "apps/xyangel/jest.config.ts",
-        "passWithNoTests": true
-      }
-    }
-  },
-  "tags": []
+    "tags": []
 }

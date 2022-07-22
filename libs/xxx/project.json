@@ -1,23 +1,29 @@
 {
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/xxx/src",
-  "projectType": "library",
-  "tags": [],
-  "targets": {
-    "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["libs/xxx/**/*.{ts,tsx,js,jsx}"]
-      }
-    },
-    "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/xxx"],
-      "options": {
-        "jestConfig": "libs/xxx/jest.config.ts",
-        "passWithNoTests": true
-      }
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "sourceRoot": "libs/xxx/src",
+    "projectType": "library",
+    "tags": [],
+    "targets": {
+        "lint": {
+            "executor": "@nrwl/linter:eslint",
+            "outputs": ["{options.outputFile}"],
+            "options": {
+                "lintFilePatterns": ["libs/xxx/**/*.{ts,tsx,js,jsx}"]
+            }
+        },
+        "type-check": {
+            "builder": "@nrwl/workspace:run-commands",
+            "options": {
+                "command": "tsc --project libs/xxx/tsconfig.json --incremental"
+            }
+        },
+        "test": {
+            "executor": "@nrwl/jest:jest",
+            "outputs": ["coverage/libs/xxx"],
+            "options": {
+                "jestConfig": "libs/xxx/jest.config.ts",
+                "passWithNoTests": true
+            }
+        }
     }
-  }
 }

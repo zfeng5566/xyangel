@@ -1,35 +1,37 @@
 {
-  "root": true,
-  "ignorePatterns": ["**/*"],
-  "plugins": ["@nrwl/nx"],
-  "overrides": [
-    {
-      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
-      "rules": {
-        "@nrwl/nx/enforce-module-boundaries": [
-          "error",
-          {
-            "enforceBuildableLibDependency": true,
-            "allow": [],
-            "depConstraints": [
-              {
-                "sourceTag": "*",
-                "onlyDependOnLibsWithTags": ["*"]
-              }
-            ]
-          }
-        ]
-      }
+    "root": true,
+    "parser": "@typescript-eslint/parser",
+    "env": {
+        "browser": true
     },
-    {
-      "files": ["*.ts", "*.tsx"],
-      "extends": ["plugin:@nrwl/nx/typescript"],
-      "rules": {}
+    "globals": {
+        "var1": "writable"
     },
-    {
-      "files": ["*.js", "*.jsx"],
-      "extends": ["plugin:@nrwl/nx/javascript"],
-      "rules": {}
-    }
-  ]
+    "plugins": ["@typescript-eslint", "@nrwl/nx"],
+    "parserOptions": {
+        "project": ["./tsconfig.base.json"]
+    },
+    "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+    "overrides": [
+        {
+            "files": ["**/*.ts", "**/*.tsx"],
+            "excludedFiles": ["**/*.spec.ts", "**/*.spec.tsx"],
+            "extends": [
+                "eslint:recommended",
+                "plugin:@typescript-eslint/recommended",
+                "plugin:react/recommended",
+                "plugin:prettier/recommended"
+            ],
+            "rules": {
+                "prettier/prettier": "error",
+                "no-undef": "error",
+                "@typescript-eslint/no-unused-vars": "error"
+            }
+        },
+        {
+            "files": ["*.js", "*.jsx"],
+            "extends": ["plugin:@nrwl/nx/javascript"],
+            "rules": {}
+        }
+    ]
 }
