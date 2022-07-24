@@ -11,6 +11,7 @@
                 "compiler": "babel",
                 "outputPath": "dist/apps/xyangel",
                 "index": "apps/xyangel/src/index.html",
+
                 "baseHref": "/",
                 "main": "apps/xyangel/src/main.tsx",
                 "polyfills": "apps/xyangel/src/polyfills.ts",
@@ -21,7 +22,7 @@
                 ],
                 "styles": ["apps/xyangel/src/styles.scss"],
                 "scripts": [],
-                "webpackConfig": "@nrwl/react/plugins/webpack"
+                "webpackConfig":"apps/xyangel/webpack.config.js"
             },
             "configurations": {
                 "development": {
@@ -51,11 +52,14 @@
             "defaultConfiguration": "development",
             "options": {
                 "buildTarget": "xyangel:build",
-                "hmr": true
+                "hmr": true,
+                "webpackConfig":"apps/xyangel/webpack.config.js"
             },
             "configurations": {
                 "development": {
-                    "buildTarget": "xyangel:build:development"
+                    "buildTarget": "xyangel:build:development",
+                     "webpackConfig":"apps/xyangel/webpack.config.js"
+                    
                 },
                 "production": {
                     "buildTarget": "xyangel:build:production",

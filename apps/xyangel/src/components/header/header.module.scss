@@ -1,0 +1,29 @@
+/*
+ * Replace this with your own classes
+ *
+ * e.g.
+ * .container {
+ * }
+*/
+
+.container{
+    height: 52px;
+    box-shadow: rgba(154, 161, 171, 0.15) 0px 0px 35px 0px;
+
+}
+
+.avator{
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+    img{
+    border-radius: 50%;
+        width: 100%;
+        height: 100%;
+    }
+}
+.avator-box{
+    display: inline-flex;
+    align-items: center;
+    font-size: 14px;
+}

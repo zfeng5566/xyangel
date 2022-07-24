@@ -1,13 +1,19 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React from 'react';
-import NxWelcome from './nx-welcome';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+import { Store } from './store/store';
+import { Header } from '../components/header/header';
 
 export function App() {
     return (
-        <>
-            <NxWelcome title="xyangel" />
-            <div />
-        </>
+        <BrowserRouter>
+            <Header />
+            <Store />
+            <Routes>
+                <Route path="/store" element={<Store />}></Route>
+            </Routes>
+        </BrowserRouter>
     );
 }
 

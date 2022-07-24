@@ -15,6 +15,7 @@
         "skipDefaultLibCheck": true,
         "baseUrl": ".",
         "paths": {
+            "@xyangel/data/json-def": ["libs/data/json-def/src/index.ts"],
             "@xyangel/xxx": ["libs/xxx/src/index.ts"]
         }
     },
