@@ -5,7 +5,9 @@
     "scripts": {
         "start": "nx serve",
         "build": "nx build",
-        "test": "nx test"
+        "test": "nx test",
+        "type-lint":"tsc --noemit --project tsconfig.check.json",
+        "prepare": "husky install"
     },
     "private": true,
     "dependencies": {
@@ -46,6 +48,7 @@
         "react-test-renderer": "18.2.0",
         "ts-jest": "27.1.4",
         "ts-node": "~10.8.0",
-        "typescript": "~4.7.2"
+        "typescript": "~4.7.2",
+        "husky": "^8.0.0"
     }
 }
