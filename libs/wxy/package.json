@@ -1,0 +1,7 @@
+{
+    "name": "@xyangel/wxy",
+    "version": "0.0.1",
+    "bin": {
+        "wxy":"src/cli/cli.js"
+    }
+}

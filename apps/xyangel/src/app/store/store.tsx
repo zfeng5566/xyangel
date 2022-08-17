@@ -41,19 +41,25 @@ const defaultCode = `
 export function Store(props: StoreProps) {
     const [code, setCode] = useState<string>(defaultCode);
 
-    const log = (str: string) => {
-        console.log(str);
-    };
-
     const divRef = React.useRef<HTMLDivElement>(null);
     React.useEffect(() => {
         if (divRef.current) {
-            editor.create(divRef.current, {
-                value: defaultCode,
-                language: 'json',
-            });
+            if (divRef.current.childNodes.length === 0) {
+                const editorInstance = editor.create(divRef.current, {
+                    value: defaultCode,
+                    language: 'json',
+                });
+
+                editorInstance.onDidChangeModelContent((e) => {
+                    const jsonValue = editorInstance.getValue();
+                    try {
+                        JSON.parse(jsonValue);
+                        setCode(editorInstance.getValue());
+                    } catch (error) {}
+                });
+            }
         }
-    }, []);
+    });
 
     return (
         <div className={styles['container']}>

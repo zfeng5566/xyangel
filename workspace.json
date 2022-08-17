@@ -3,7 +3,7 @@
     "version": 2,
     "projects": {
         "data-json-def": "libs/data/json-def",
-        "xxx": "libs/xxx",
+        "wxy": "libs/wxy",
         "xyangel": "apps/xyangel"
     }
 }
