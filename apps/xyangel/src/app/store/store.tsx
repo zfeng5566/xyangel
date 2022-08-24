@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
-import { Input, Button, Table, Card, Row, Col, Modal, Select } from 'antd';
-import { FormProps } from '@rjsf/core';
+import { Input, Button, Card, Row, Col } from 'antd';
 import { Form } from '@rjsf/antd';
 import { editor } from 'monaco-editor';
-import { Attribute, attrTypeList } from '@xyangel/data/json-def';
-import MonacoEditor from 'react-monaco-editor';
 import styles from './store.module.scss';
 
 /* eslint-disable-next-line */
@@ -55,6 +52,7 @@ export function Store(props: StoreProps) {
                     try {
                         JSON.parse(jsonValue);
                         setCode(editorInstance.getValue());
+                        // eslint-disable-next-line no-empty
                     } catch (error) {}
                 });
             }
