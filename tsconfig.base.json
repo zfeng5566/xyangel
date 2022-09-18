@@ -16,6 +16,7 @@
         "baseUrl": ".",
         "paths": {
             "@xyangel/data/json-def": ["libs/data/json-def/src/index.ts"],
+            "@xyangel/shared/utils": ["libs/shared/utils/src/index.ts"],
             "@xyangel/wxy": ["libs/wxy/src/index.ts"]
         }
     },
