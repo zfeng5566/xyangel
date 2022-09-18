@@ -1,0 +1,83 @@
+{
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "sourceRoot": "apps/redux-demo/src",
+    "projectType": "application",
+    "targets": {
+        "build": {
+            "executor": "@nrwl/web:webpack",
+            "outputs": ["{options.outputPath}"],
+            "defaultConfiguration": "production",
+            "options": {
+                "compiler": "babel",
+                "outputPath": "dist/apps/redux-demo",
+                "index": "apps/redux-demo/src/index.html",
+                "baseHref": "/",
+                "main": "apps/redux-demo/src/main.tsx",
+                "polyfills": "apps/redux-demo/src/polyfills.ts",
+                "tsConfig": "apps/redux-demo/tsconfig.app.json",
+                "assets": [
+                    "apps/redux-demo/src/favicon.ico",
+                    "apps/redux-demo/src/assets"
+                ],
+                "styles": ["apps/redux-demo/src/styles.scss"],
+                "scripts": [],
+                "webpackConfig": "@nrwl/react/plugins/webpack"
+            },
+            "configurations": {
+                "development": {
+                    "extractLicenses": false,
+                    "optimization": false,
+                    "sourceMap": true,
+                    "vendorChunk": true
+                },
+                "production": {
+                    "fileReplacements": [
+                        {
+                            "replace": "apps/redux-demo/src/environments/environment.ts",
+                            "with": "apps/redux-demo/src/environments/environment.prod.ts"
+                        }
+                    ],
+                    "optimization": true,
+                    "outputHashing": "all",
+                    "sourceMap": false,
+                    "namedChunks": false,
+                    "extractLicenses": true,
+                    "vendorChunk": false
+                }
+            }
+        },
+        "serve": {
+            "executor": "@nrwl/web:dev-server",
+            "defaultConfiguration": "development",
+            "options": {
+                "buildTarget": "redux-demo:build",
+                "hmr": true
+            },
+            "configurations": {
+                "development": {
+                    "buildTarget": "redux-demo:build:development"
+                },
+                "production": {
+                    "buildTarget": "redux-demo:build:production",
+                    "hmr": false
+                }
+            }
+        },
+        "lint": {
+            "executor": "@nrwl/linter:eslint",
+            "outputs": ["{options.outputFile}"],
+            "options": {
+                "lintFilePatterns": ["apps/redux-demo/**/*.{ts,tsx,js,jsx}"]
+            }
+        },
+        "test": {
+            "executor": "@nrwl/jest:jest",
+            "outputs": ["coverage/apps/redux-demo"],
+            "options": {
+                "jestConfig": "apps/redux-demo/jest.config.ts",
+                "passWithNoTests": true
+            }
+        }
+    },
+    "tags": []
+}

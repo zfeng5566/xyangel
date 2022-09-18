@@ -12,6 +12,7 @@
     "private": true,
     "dependencies": {
         "@ant-design/icons": "^4.7.0",
+        "@reduxjs/toolkit": "^1.8.5",
         "@rjsf/antd": "^4.2.2",
         "@rjsf/core": "^4.2.2",
         "@xyangel/wxy": "file:dist/libs/wxy",
@@ -29,6 +30,7 @@
         "react-bootstrap": "^2.4.0",
         "react-dom": "18.2.0",
         "react-monaco-editor": "^0.49.0",
+        "react-redux": "^8.0.2",
         "react-router-dom": "6.3.0",
         "regenerator-runtime": "0.13.7",
         "rxjs": "^6.6.7",
@@ -36,6 +38,7 @@
     },
     "devDependencies": {
         "@nrwl/cli": "14.4.3",
+        "@nrwl/cypress": "14.4.3",
         "@nrwl/eslint-plugin-nx": "14.4.3",
         "@nrwl/jest": "14.4.3",
         "@nrwl/js": "14.5.6",
