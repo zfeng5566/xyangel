@@ -1,57 +1,43 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, { useEffect, useRef } from 'react';
-import { connectToParent } from 'penpal';
-let num1 = 1;
+import React, { useEffect, useRef, useState } from 'react';
+import { connectToParent } from '@xyangel/penpal-bridge';
+
+const parentConnection = connectToParent<
+    any,
+    {
+        getChildName(): string;
+    }
+>(
+    {
+        getChildName() {
+            return '1111';
+        },
+    },
+    {}
+);
 export function App() {
-    const connectRef = useRef<ReturnType<typeof connectToParent>>(null);
-    const connectParent = () => {
-        num1++;
-        console.log(2222222222222);
-        const connection = connectToParent({
-            timeout: 200,
-            debug: true,
-            methods: {
-                getChildName() {
-                    return '内嵌ifrme' + num1;
-                },
+    const [count, setCount] = useState(0);
+
+    useEffect(() => {
+        return parentConnection.use({
+            getChildName() {
+                return `${count}`;
             },
         });
-
-        (connectRef as any).current = connection;
-    };
-    useEffect(() => {
-        connectParent();
-    }, []);
+    }, [count]);
 
     return (
         <>
             <div>child page</div>
             <div />
+
+            <h5>当前点击次数: {count}</h5>
             <button
                 onClick={() => {
-                    connectRef.current?.promise.then((parent) => {
-                        (parent as any).add(3, 3).then((r: any) => {
-                            console.log(r);
-                        });
-                    });
+                    setCount(count + 1);
                 }}
             >
-                请求
-            </button>
-            <button
-                onClick={() => {
-                    connectRef.current?.destroy();
-                }}
-            >
-                {' '}
-                断开连接
-            </button>
-            <button
-                onClick={() => {
-                    connectParent();
-                }}
-            >
-                重新连接
+                +1
             </button>
         </>
     );

@@ -3,6 +3,7 @@
     "version": 2,
     "projects": {
         "data-json-def": "libs/data/json-def",
+        "penpal-bridge": "libs/penpal-bridge",
         "penpal-demo-child": "apps/penpal-demo-child",
         "penpal-demo-parent": "apps/penpal-demo-parent",
         "redux-demo": "apps/redux-demo",

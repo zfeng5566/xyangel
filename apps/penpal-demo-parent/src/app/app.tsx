@@ -4,7 +4,7 @@ import { connectToChild } from 'penpal';
 
 export function App() {
     const childIframeRef = useRef<HTMLIFrameElement>(null);
-    const childIframeRef1 = useRef<HTMLIFrameElement>(null);
+    const childBridgeApi = useRef<any>(null);
     useEffect(() => {
         console.log('parent log: ', 'ueeEffect');
         if (childIframeRef.current) {
@@ -24,25 +24,8 @@ export function App() {
                         return num1 + num2;
                     },
                 },
-            });
-        }
-
-        console.log('parent log: ', 'ueeEffect');
-        if (childIframeRef1.current) {
-            console.log('parent log: ', 2222);
-            connectToChild({
-                iframe: childIframeRef1.current,
-                debug: true,
-                methods: {
-                    remove: () => {
-                        console.log(11);
-                    },
-                    add(num1: number, num2: number) {
-                        console.log('第二个iframe 执行');
-
-                        return num1 + num2;
-                    },
-                },
+            }).promise.then((child) => {
+                (childBridgeApi as any).current = child;
             });
         }
     }, []);
@@ -54,12 +37,17 @@ export function App() {
                 src="http://localhost:4310"
                 ref={childIframeRef}
             />
-            <iframe
-                title="child"
-                src="http://localhost:4310"
-                ref={childIframeRef1}
-            />
-            <div />
+
+            <button
+                onClick={async () => {
+                    const count = await childBridgeApi.current?.getChildName();
+                    if (count) {
+                        console.log('2222222: ', count);
+                    }
+                }}
+            >
+                获取iframe点击次数
+            </button>
         </div>
     );
 }
