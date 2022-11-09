@@ -51,6 +51,7 @@
             "defaultConfiguration": "development",
             "options": {
                 "buildTarget": "redux-demo:build",
+                "port": 4300,
                 "hmr": true
             },
             "configurations": {

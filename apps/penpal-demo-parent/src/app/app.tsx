@@ -40,7 +40,8 @@ export function App() {
 
             <button
                 onClick={async () => {
-                    const count = await childBridgeApi.current?.getChildName();
+                    const count =
+                        await childBridgeApi.current?.commonApi?.getChildName();
                     if (count) {
                         console.log('2222222: ', count);
                     }

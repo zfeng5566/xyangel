@@ -5,25 +5,36 @@ import { connectToParent } from '@xyangel/penpal-bridge';
 const parentConnection = connectToParent<
     any,
     {
-        getChildName(): string;
+        commonApi: {
+            getChildName(): string;
+        };
+        runDemo(): string;
     }
 >(
     {
-        getChildName() {
-            return '1111';
+        commonApi: {
+            getChildName() {
+                return '1111';
+            },
+        },
+        runDemo() {
+            return 'demo';
         },
     },
     {}
 );
 export function App() {
     const [count, setCount] = useState(0);
+    console.log('child App render');
 
     useEffect(() => {
-        return parentConnection.use({
-            getChildName() {
-                return `${count}`;
+        return ((window as any).offUse = parentConnection.use({
+            commonApi: {
+                getChildName() {
+                    return `${count}`;
+                },
             },
-        });
+        }));
     }, [count]);
 
     return (
