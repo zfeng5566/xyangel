@@ -116,7 +116,7 @@ class Connect<P extends object, C extends Methods> {
     }
 }
 
-export const connectToParent = <P extends object, C extends Methods>(
+export const connectToParent = <P extends Methods, C extends Methods>(
     defaultMethods: C,
     options: Options
 ) => {
