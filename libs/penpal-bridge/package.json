@@ -1,5 +1,8 @@
 {
     "name": "@xyangel/penpal-bridge",
     "version": "0.0.1",
-    "type": "commonjs"
+    "type": "commonjs",
+    "peerDependencies": {
+        "react": ">=16.0.0"
+    }
 }

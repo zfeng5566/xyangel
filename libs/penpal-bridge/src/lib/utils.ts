@@ -1,15 +1,12 @@
-import { connectToParent as penpalConnectToParent, Methods } from 'penpal';
-
-type Options = Parameters<typeof penpalConnectToParent>[0];
-
-const rewriteMethods = (methods: Methods) => {
+import { Methods } from 'penpal';
+export const rewriteMethods = (methods: any) => {
     const flattenedMethods: Methods = {};
     Object.keys(methods).forEach((key) => {
         const value = methods[key];
         if (typeof value === 'object') {
             // Recurse into any nested children.
             Object.assign(flattenedMethods, {
-                [key]: rewriteMethods(value),
+                [key]: rewriteMethods(value as any),
             });
         }
 
@@ -27,14 +24,14 @@ const rewriteMethods = (methods: Methods) => {
  * @param baseMethods
  * @param newMethods
  */
-const assignMethods = (baseMethods: Methods, newMethods: Methods) => {
+export const assignMethods = (baseMethods: any, newMethods: any) => {
     Object.keys(newMethods).forEach((key) => {
         const value = newMethods[key];
         if (typeof value === 'function') {
             baseMethods[key] = value;
         }
         if (typeof value === 'object') {
-            assignMethods(baseMethods[key] as Methods, value);
+            assignMethods(baseMethods[key] as Methods, value as unknown as any);
         }
     });
 };
@@ -44,7 +41,7 @@ const assignMethods = (baseMethods: Methods, newMethods: Methods) => {
  * @param baseMethods
  * @returns
  */
-const cloneMethods = (baseMethods: Methods) => {
+export const cloneMethods = (baseMethods: any) => {
     const flattenedMethods: Methods = {};
 
     Object.keys(baseMethods).forEach((key) => {
@@ -61,13 +58,14 @@ const cloneMethods = (baseMethods: Methods) => {
     });
     return flattenedMethods;
 };
+
 /**
  * 从 baseMethods 检出 methods中同名方法
  * @param baseMethods
  * @param methods
  * @returns
  */
-const pickMethods = (baseMethods: Methods, methods: Methods) => {
+export const pickMethods = (baseMethods: Methods, methods: Methods) => {
     const flattenedMethods: Methods = {};
 
     Object.keys(methods).forEach((key) => {
@@ -83,42 +81,4 @@ const pickMethods = (baseMethods: Methods, methods: Methods) => {
         }
     });
     return flattenedMethods;
-};
-
-class Connect<P extends object, C extends Methods> {
-    penpalConnection;
-    defaultMethodsBackup;
-    constructor(private defaultMethods: C, private options: Options) {
-        this.defaultMethodsBackup = cloneMethods(defaultMethods);
-        this.penpalConnection = penpalConnectToParent<P>({
-            ...options,
-            methods: this.defaultMethods
-                ? rewriteMethods(this.defaultMethods)
-                : {},
-        });
-    }
-
-    use(methods: Partial<C>) {
-        if (this.defaultMethods) {
-            assignMethods(this.defaultMethods, methods as unknown as Methods);
-        }
-        return () => {
-            if (this.defaultMethods && methods) {
-                assignMethods(
-                    this.defaultMethods,
-                    pickMethods(
-                        this.defaultMethodsBackup,
-                        methods as unknown as Methods
-                    )
-                );
-            }
-        };
-    }
-}
-
-export const connectToParent = <P extends Methods, C extends Methods>(
-    defaultMethods: C,
-    options: Options
-) => {
-    return new Connect<P, C>(defaultMethods, options);
 };

@@ -1,35 +1,33 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, { useEffect, useRef } from 'react';
-import { connectToChild } from 'penpal';
+import React, { useEffect, useRef, useState } from 'react';
+import {
+    usePenpalConnectToChild,
+    ParentBridgeApi,
+    ChildBridgeApi,
+} from '@xyangel/penpal-bridge';
 
 export function App() {
     const childIframeRef = useRef<HTMLIFrameElement>(null);
-    const childBridgeApi = useRef<any>(null);
-    useEffect(() => {
-        console.log('parent log: ', 'ueeEffect');
-        if (childIframeRef.current) {
-            console.log('parent log: ', 1111);
-            connectToChild({
-                iframe: childIframeRef.current,
-                debug: true,
+    const [inputValue, setInputValue] = useState<string>('');
 
-                methods: {
-                    email: {
-                        getEmail() {
-                            return 'iwang5566@126.com';
-                        },
-                    },
-                    add(num1: number, num2: number) {
-                        console.log('第一个iframe 执行');
-                        return num1 + num2;
-                    },
+    const { childBridgeApi } = usePenpalConnectToChild<
+        ParentBridgeApi,
+        ChildBridgeApi
+    >(
+        {
+            email: {
+                getEmail() {
+                    return inputValue;
                 },
-            }).promise.then((child) => {
-                (childBridgeApi as any).current = child;
-            });
-        }
-    }, []);
+            },
+            add(num1, num2) {
+                return num1 + num2;
+            },
+        },
+        childIframeRef
+    );
 
+    console.log('childBridgeApi: ', childBridgeApi);
     return (
         <div>
             <iframe
@@ -38,10 +36,15 @@ export function App() {
                 ref={childIframeRef}
             />
 
+            <input
+                value={inputValue}
+                onChange={(e) => {
+                    setInputValue(e.target.value);
+                }}
+            />
             <button
                 onClick={async () => {
-                    const count =
-                        await childBridgeApi.current?.commonApi?.getChildName();
+                    const count = await childBridgeApi?.common.getCount();
                     if (count) {
                         console.log('2222222: ', count);
                     }

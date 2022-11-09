@@ -1,27 +1,25 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React, { useEffect, useRef, useState } from 'react';
-import { connectToParent } from '@xyangel/penpal-bridge';
+import {
+    connectToParent,
+    ParentBridgeApi,
+    ChildBridgeApi,
+} from '@xyangel/penpal-bridge';
 
-const parentConnection = connectToParent<
-    any,
+const parentConnection = connectToParent<ParentBridgeApi, ChildBridgeApi>(
     {
-        commonApi: {
-            getChildName(): string;
-        };
-        runDemo(): string;
-    }
->(
-    {
-        commonApi: {
-            getChildName() {
-                return '1111';
+        common: {
+            getCount() {
+                throw new Error('1');
             },
         },
-        runDemo() {
-            return 'demo';
+        getText() {
+            throw new Error('没有实现');
         },
     },
-    {}
+    {
+        debug: true,
+    }
 );
 export function App() {
     const [count, setCount] = useState(0);
@@ -29,9 +27,9 @@ export function App() {
 
     useEffect(() => {
         return ((window as any).offUse = parentConnection.use({
-            commonApi: {
-                getChildName() {
-                    return `${count}`;
+            common: {
+                getCount() {
+                    return count;
                 },
             },
         }));
@@ -50,6 +48,34 @@ export function App() {
             >
                 +1
             </button>
+
+            <button
+                onClick={() => {
+                    parentConnection.penpalConnection.promise.then(
+                        (parentApi) => {
+                            console.log('父窗口暴露的方法：', parentApi);
+
+                            parentApi.email.getEmail().then((value) => {
+                                console.log(
+                                    'parentApi email.getEmail return value: ',
+                                    value
+                                );
+                            });
+                        }
+                    );
+                }}
+            >
+                调用父窗口接口
+            </button>
+            <div>
+                <button
+                    onClick={() => {
+                        window.location.reload();
+                    }}
+                >
+                    刷新页面
+                </button>
+            </div>
         </>
     );
 }
