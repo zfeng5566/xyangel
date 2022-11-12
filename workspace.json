@@ -2,11 +2,13 @@
     "$schema": "./node_modules/nx/schemas/workspace-schema.json",
     "version": 2,
     "projects": {
+        "apps-host-app": "apps/apps/host-app",
         "data-json-def": "libs/data/json-def",
         "penpal-bridge": "libs/penpal-bridge",
         "penpal-demo-child": "apps/penpal-demo-child",
         "penpal-demo-parent": "apps/penpal-demo-parent",
         "redux-demo": "apps/redux-demo",
+        "remote-app": "apps/remote-app",
         "shared-utils": "libs/shared/utils",
         "wxy": "libs/wxy",
         "xyangel": "apps/xyangel"
