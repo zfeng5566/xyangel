@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import logger from 'consola';
-const log = logger.withScope('ObjectHookDemo');
+// import logger from 'consola';
+// const log = logger.withScope('ObjectHookDemo');
 
 function ObjectHookDemo() {
     const [obj, setObj] = useState({ id: '1', name: '1' });
 
-    log.start('start');
-    log.info('ObjectHookDemo render');
+    // log.start('start');
+    // log.info('ObjectHookDemo render');
     return (
         <div>
             <h2>id: {obj.id}</h2>
