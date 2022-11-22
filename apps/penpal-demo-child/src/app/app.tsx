@@ -6,21 +6,16 @@ import {
     ChildBridgeApi,
 } from '@xyangel/penpal-bridge';
 
-const parentConnection = connectToParent<ParentBridgeApi, ChildBridgeApi>(
-    {
-        common: {
-            getCount() {
-                throw new Error('1');
-            },
-        },
-        getText() {
-            throw new Error('没有实现');
+const parentConnection = connectToParent<ParentBridgeApi, ChildBridgeApi>({
+    common: {
+        getCount() {
+            throw new Error('1');
         },
     },
-    {
-        debug: true,
-    }
-);
+    getText() {
+        throw new Error('没有实现');
+    },
+});
 export function App() {
     const [count, setCount] = useState(0);
     console.log('child App render');
@@ -31,6 +26,9 @@ export function App() {
                 getCount() {
                     return count;
                 },
+            },
+            getText() {
+                return '11';
             },
         }));
     }, [count]);
