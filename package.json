@@ -5,6 +5,8 @@
     "scripts": {
         "start": "nx serve",
         "build": "nx build",
+        "build:xyangel":"nx run xyangel:build:production",
+        "build:webpack-plugin":"nx run webpack-plugin:build:production",
         "test": "nx test",
         "type-lint": "echo 'done'",
         "prepare": "husky install"

@@ -1,0 +1,83 @@
+{
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "sourceRoot": "apps/webpack-plugin/src",
+    "projectType": "application",
+    "targets": {
+        "build": {
+            "executor": "@nrwl/web:webpack",
+            "outputs": ["{options.outputPath}"],
+            "defaultConfiguration": "production",
+            "options": {
+                "compiler": "babel",
+                "outputPath": "dist/apps/webpack-plugin",
+                "index": "apps/webpack-plugin/src/index.html",
+                "baseHref": "/",
+                "main": "apps/webpack-plugin/src/main.tsx",
+                "polyfills": "apps/webpack-plugin/src/polyfills.ts",
+                "tsConfig": "apps/webpack-plugin/tsconfig.app.json",
+                "assets": [
+                    "apps/webpack-plugin/src/favicon.ico",
+                    "apps/webpack-plugin/src/assets"
+                ],
+                "styles": ["apps/webpack-plugin/src/styles.scss"],
+                "scripts": [],
+                "webpackConfig": "apps/webpack-plugin/webpack.config.js"
+            },
+            "configurations": {
+                "development": {
+                    "extractLicenses": false,
+                    "optimization": false,
+                    "sourceMap": true,
+                    "vendorChunk": true
+                },
+                "production": {
+                    "fileReplacements": [
+                        {
+                            "replace": "apps/webpack-plugin/src/environments/environment.ts",
+                            "with": "apps/webpack-plugin/src/environments/environment.prod.ts"
+                        }
+                    ],
+                    "optimization": true,
+                    "outputHashing": "all",
+                    "sourceMap": false,
+                    "namedChunks": false,
+                    "extractLicenses": true,
+                    "vendorChunk": false
+                }
+            }
+        },
+        "serve": {
+            "executor": "@nrwl/web:dev-server",
+            "defaultConfiguration": "development",
+            "options": {
+                "buildTarget": "webpack-plugin:build",
+                "hmr": true
+            },
+            "configurations": {
+                "development": {
+                    "buildTarget": "webpack-plugin:build:development"
+                },
+                "production": {
+                    "buildTarget": "webpack-plugin:build:production",
+                    "hmr": false
+                }
+            }
+        },
+        "lint": {
+            "executor": "@nrwl/linter:eslint",
+            "outputs": ["{options.outputFile}"],
+            "options": {
+                "lintFilePatterns": ["apps/webpack-plugin/**/*.{ts,tsx,js,jsx}"]
+            }
+        },
+        "test": {
+            "executor": "@nrwl/jest:jest",
+            "outputs": ["coverage/apps/webpack-plugin"],
+            "options": {
+                "jestConfig": "apps/webpack-plugin/jest.config.ts",
+                "passWithNoTests": true
+            }
+        }
+    },
+    "tags": []
+}

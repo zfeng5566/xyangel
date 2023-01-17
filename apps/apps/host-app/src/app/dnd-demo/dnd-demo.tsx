@@ -1,9 +1,9 @@
 import React from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import styles from './dnd-demo.module.scss';
+// import styles from './dnd-demo.module.scss';
 import { Container } from './dnd-item/container';
-import { DndItem } from './dnd-item/dnd-item';
+// import { DndItem } from './dnd-item/dnd-item';
 
 /* eslint-disable-next-line */
 export interface DndDemoProps {}

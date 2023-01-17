@@ -1,10 +1,10 @@
 import React, { useRef } from 'react';
-import update from 'immutability-helper';
+// import update from 'immutability-helper';
 import EventEmitter from 'eventemitter3';
 import type { FC } from 'react';
 import { useCallback, useState } from 'react';
 import { DndItem } from './dnd-item';
-import { menuData, MenuElement, MenuList } from '../data';
+import { menuData, MenuElement } from '../data';
 import { DndGroup } from '../dnd-group/dnd-group';
 import { useDrop } from 'react-dnd';
 import { ItemTypes } from './ItemTypes';

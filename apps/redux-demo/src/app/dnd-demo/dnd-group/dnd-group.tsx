@@ -17,7 +17,7 @@ interface Props {
 }
 
 export const DndGroup: React.FC<PropsWithChildren<Props>> = (props) => {
-    const { id, axisEvent, index, type, text } = props;
+    const { id, axisEvent, index, type } = props;
     const ref = useRef<HTMLDivElement>(null);
     const headerRef = useRef<HTMLDivElement>(null);
 
@@ -34,7 +34,7 @@ export const DndGroup: React.FC<PropsWithChildren<Props>> = (props) => {
             };
         },
     });
-    const [{ handlerId, dragging }, drop] = useDrop<
+    const [{ dragging }, drop] = useDrop<
         DragItem,
         void,
         { handlerId: Identifier | null; dragging: boolean }

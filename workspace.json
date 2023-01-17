@@ -10,6 +10,7 @@
         "redux-demo": "apps/redux-demo",
         "remote-app": "apps/remote-app",
         "shared-utils": "libs/shared/utils",
+        "webpack-plugin": "apps/webpack-plugin",
         "wxy": "libs/wxy",
         "xyangel": "apps/xyangel"
     }
